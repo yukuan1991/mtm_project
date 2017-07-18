@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>mtm_main</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,1">
    <item>
     <widget class="ribbon_mtm" name="widget" native="true"/>
    </item>

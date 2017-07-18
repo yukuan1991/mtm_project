@@ -4,8 +4,6 @@
 #include <boost/filesystem.hpp>
 #include <QStyleFactory>
 #include <boost/range/adaptors.hpp>
-#include "interface_control/ribbon_mtm.h"
-
 
 void set_style ()
 {
@@ -36,8 +34,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     set_style();
 
-    ribbon_mtm m;
-    m.show();
     mtm_main w;
     w.show();
 
