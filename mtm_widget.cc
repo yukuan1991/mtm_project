@@ -1,4 +1,4 @@
-#include "mtm_widget.h"
+﻿#include "mtm_widget.h"
 #include "ui_mtm_widget.h"
 
 mtm_widget::mtm_widget(QWidget *parent) :
@@ -7,6 +7,7 @@ mtm_widget::mtm_widget(QWidget *parent) :
 {
     ui->setupUi(this);
 }
+
 
 mtm_widget::~mtm_widget()
 {
