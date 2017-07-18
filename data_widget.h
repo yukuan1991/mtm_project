@@ -22,7 +22,10 @@ public:
     explicit data_widget(QWidget *parent = 0);
     ~data_widget();
 public:
+    void add_code (const QVariant& code);
     void set_unit (double unit);
+    void next_code ();
+
 
     void set_row (int num);
     void clear();

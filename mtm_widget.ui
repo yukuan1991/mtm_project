@@ -1649,7 +1649,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -1723,7 +1723,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QTextBrowser" name="textBrowser">
+        <widget class="QTextBrowser" name="text_area_description">
          <property name="minimumSize">
           <size>
            <width>0</width>

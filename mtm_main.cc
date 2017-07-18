@@ -27,6 +27,12 @@ void mtm_main::init_conn()
     connect(ui->widget_ribbon, &ribbon_mtm::file_menu_triggered,
             [this] (const QString & s) { file_operations(s); });
 
+    connect (ui->widget_mtm, &mtm_widget::code_changed,
+             ui->widget_data, &data_widget::add_code);
+
+    connect (ui->widget_mtm, &mtm_widget::return_pressed,
+             ui->widget_data, &data_widget::next_code);
+
 }
 
 void mtm_main::file_operations(const QString &s)

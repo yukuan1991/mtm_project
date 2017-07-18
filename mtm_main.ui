@@ -43,7 +43,7 @@
     </widget>
    </item>
    <item>
-    <widget class="mtm_widget" name="widget_3" native="true"/>
+    <widget class="mtm_widget" name="widget_mtm" native="true"/>
    </item>
   </layout>
  </widget>
