@@ -30,10 +30,17 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="ribbon_mtm" name="widget" native="true"/>
+    <widget class="ribbon_mtm" name="widget_ribbon" native="true"/>
    </item>
    <item>
-    <widget class="data_widget" name="widget_2" native="true"/>
+    <widget class="data_widget" name="widget_data" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>200</height>
+      </size>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="mtm_widget" name="widget_3" native="true"/>

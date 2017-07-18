@@ -32,7 +32,15 @@ SOURCES += main.cc\
     interface_control/ribbon.cc \
     interface_control/ribbon_mtm.cc \
     data_widget.cc \
-    mtm_widget.cc
+    mtm_widget.cc \
+    model/json_model.cpp \
+    pts/code_edit.cpp \
+    pts/pts_delegate.cpp \
+    pts/pts_model.cpp \
+    Qt-Utils/des.cpp \
+    Qt-Utils/encryption.cpp \
+    Qt-Utils/tinyxml2.cpp \
+    view/table_view.cpp
 
 HEADERS  += mtm_main.h \
     interface_control/about_us_dlg.h \
@@ -40,7 +48,20 @@ HEADERS  += mtm_main.h \
     interface_control/ribbon.h \
     interface_control/ribbon_mtm.h \
     data_widget.h \
-    mtm_widget.h
+    mtm_widget.h \
+    model/json_model.h \
+    pts/code_edit.h \
+    pts/pts_delegate.h \
+    pts/pts_model.h \
+    Qt-Utils/des.h \
+    Qt-Utils/encryption.h \
+    Qt-Utils/json.hpp \
+    Qt-Utils/krys_application.hpp \
+    Qt-Utils/qt.hpp \
+    Qt-Utils/stl_extension.hpp \
+    Qt-Utils/tinyxml2.h \
+    view/table_view.h \
+    arithmetic_resource.hpp
 
 FORMS    += mtm_main.ui \
     data_widget.ui \
@@ -50,3 +71,4 @@ LIBS += -lboost_locale
 LIBS += -liconv
 LIBS += -lboost_filesystem
 LIBS += -lboost_system
+LIBS += -lboost_regex
