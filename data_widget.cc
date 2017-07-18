@@ -22,23 +22,19 @@ data_widget::~data_widget()
 
 void data_widget::add_code(const QVariant &code)
 {
-    qDebug() << result_model_->rowCount();
     if (result_model_->size() <= 0)
     {
         QMessageBox::information (this, "代码", "请新建一个表格");
         return;
     }
-    qDebug() << __PRETTY_FUNCTION__ << __LINE__;
+
     if (view_ == nullptr or view_->selectionModel()->selectedIndexes ().empty ())
     {
-        qDebug() << __PRETTY_FUNCTION__ << __LINE__;
-
         QMessageBox::information (this, "代码", "请选中一个表格");
         return;
     }
 
     assert (view_);
-    qDebug() << __PRETTY_FUNCTION__ << __LINE__;
 
     auto list = view_->selectionModel ()->selectedIndexes ();
     decltype (list) code_list;
