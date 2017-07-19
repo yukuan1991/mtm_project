@@ -12,6 +12,7 @@ mtm_widget::mtm_widget(QWidget *parent) :
     ui->setupUi(this);
     init ();
     std::tie (kv_tmu_, mtm_data_) = read_tmu_data ();
+    ui->pushButton_78->setFlat(true);
 }
 
 
