@@ -40,7 +40,8 @@ SOURCES += main.cc\
     Qt-Utils/des.cpp \
     Qt-Utils/encryption.cpp \
     Qt-Utils/tinyxml2.cpp \
-    view/table_view.cpp
+    view/table_view.cpp \
+    mtm_analysis.cc
 
 HEADERS  += mtm_main.h \
     interface_control/about_us_dlg.h \
@@ -61,11 +62,13 @@ HEADERS  += mtm_main.h \
     Qt-Utils/stl_extension.hpp \
     Qt-Utils/tinyxml2.h \
     view/table_view.h \
-    arithmetic_resource.hpp
+    arithmetic_resource.hpp \
+    mtm_analysis.h
 
 FORMS    += mtm_main.ui \
     data_widget.ui \
-    mtm_widget.ui
+    mtm_widget.ui \
+    mtm_analysis.ui
 
 LIBS += -lboost_locale
 LIBS += -liconv

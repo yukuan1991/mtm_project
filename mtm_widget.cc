@@ -2,6 +2,7 @@
 #include "ui_mtm_widget.h"
 #include <assert.h>
 #include "arithmetic_resource.hpp"
+#include <QDate>
 
 std::map<std::string, int> mtm_widget::kv_tmu_;
 
@@ -24,6 +25,36 @@ mtm_widget::~mtm_widget()
 void mtm_widget::set_std_time_sum(QString &sum)
 {
     ui->label_total->setText(sum);
+}
+
+void mtm_widget::set_measure_date(const QDate &date)
+{
+    ui->measure_date->setText (date.toString ("yyyy-MM-dd"));
+}
+
+QString mtm_widget::measure_date() const
+{
+    return ui->measure_date->text ();
+}
+
+void mtm_widget::set_measure_man(const QString &data)
+{
+    ui->measure_man->setText (data);
+}
+
+QString mtm_widget::measure_man() const
+{
+    return ui->measure_man->text();
+}
+
+void mtm_widget::set_task_man(const QString &data)
+{
+    ui->task_man->setText (data);
+}
+
+QString mtm_widget::task_man() const
+{
+    return ui->task_man->text();
 }
 
 void mtm_widget::on_button_mtm_uas_confirm_return_clicked()

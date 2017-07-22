@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>mtm_main</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,1">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -33,38 +33,16 @@
     <widget class="ribbon_mtm" name="widget_ribbon" native="true"/>
    </item>
    <item>
-    <widget class="data_widget" name="widget_data" native="true">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>200</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="mtm_widget" name="widget_mtm" native="true"/>
+    <widget class="QMdiArea" name="mdi"/>
    </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>data_widget</class>
-   <extends>QWidget</extends>
-   <header>data_widget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>ribbon_mtm</class>
    <extends>QWidget</extends>
    <header>interface_control/ribbon_mtm.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>mtm_widget</class>
-   <extends>QWidget</extends>
-   <header>mtm_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
