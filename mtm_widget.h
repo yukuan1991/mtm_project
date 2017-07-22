@@ -17,6 +17,7 @@ signals:
 public:
     explicit mtm_widget(QWidget *parent = 0);
     ~mtm_widget();
+    void set_std_time_sum(QString&);
 private:
     void on_button_mtm_uas_confirm_return_clicked();
 

@@ -13,11 +13,33 @@ data_widget::data_widget(QWidget *parent) :
     ui->table_result->setItemDelegate(result_delegate_.get());
     view_ = ui->table_result;
     set_view();
+
 }
 
 data_widget::~data_widget()
 {
     delete ui;
+}
+
+QString data_widget::get_std_time_sum() const
+{
+    auto col = 5;
+    double sum = 0;
+    for (int row = 0; row < static_cast<int>(result_model_->size ()); ++row)
+    {
+        auto pos = result_model_->index (row, col);
+        auto vat = result_model_->data (pos);
+        if (vat.isNull ())
+        {
+            continue;
+        }
+        else
+        {
+            auto time = vat.toDouble ();
+            sum += time;
+        }
+    }
+    return QString::number(sum, 'f', 2);
 }
 
 void data_widget::add_code(const QVariant &code)
@@ -68,6 +90,10 @@ void data_widget::add_code(const QVariant &code)
     assert (min_row_index != -1 and min_row_index < code_list.size ());
 
     view_->model ()->setData (code_list[min_row_index], code);
+
+    auto sum = get_std_time_sum();
+    qDebug() << sum;
+    emit std_time_sum(sum);
 }
 
 void data_widget::set_unit(double unit)

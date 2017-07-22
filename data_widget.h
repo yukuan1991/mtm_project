@@ -18,10 +18,12 @@ class data_widget : public QWidget
     Q_OBJECT
 signals:
     void line_exists (bool yes_or_no);
+    void std_time_sum(QString&);
 public:
     explicit data_widget(QWidget *parent = 0);
     ~data_widget();
 public:
+    QString get_std_time_sum() const;
     void add_code (const QVariant& code);
     void set_unit (double unit);
     void next_code ();

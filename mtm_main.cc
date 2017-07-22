@@ -33,6 +33,9 @@ void mtm_main::init_conn()
     connect (ui->widget_mtm, &mtm_widget::return_pressed,
              ui->widget_data, &data_widget::next_code);
 
+    connect (ui->widget_data, &data_widget::std_time_sum,
+             ui->widget_mtm, &mtm_widget::set_std_time_sum);
+
 }
 
 void mtm_main::file_operations(const QString &s)

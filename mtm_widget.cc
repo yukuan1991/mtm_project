@@ -21,6 +21,11 @@ mtm_widget::~mtm_widget()
     delete ui;
 }
 
+void mtm_widget::set_std_time_sum(QString &sum)
+{
+    ui->label_total->setText(sum);
+}
+
 void mtm_widget::on_button_mtm_uas_confirm_return_clicked()
 {
     emit return_pressed ();
