@@ -23,6 +23,7 @@ public:
     ~mtm_analysis();
 
     void set_task_count ();
+    bool task_content_check ();
     void add_row();
 
 
@@ -34,6 +35,9 @@ public:
 
     void set_task_man (const QString & data);
     QString task_man () const;
+
+    json dump();
+    void load (const json& data);
 private:
     void init();
     void init_conn();

@@ -1,6 +1,7 @@
 ﻿#include "mtm_analysis.h"
 #include "ui_mtm_analysis.h"
 #include <QInputDialog>
+#include <QDate>
 
 mtm_analysis::mtm_analysis(QWidget *parent) :
     QWidget(parent),
@@ -34,6 +35,11 @@ void mtm_analysis::set_task_count()
 
         current_file_data_.clear ();
     }
+}
+
+bool mtm_analysis::task_content_check()
+{
+    return ui->widget_data->task_content_check();
 }
 
 void mtm_analysis::add_row()
@@ -103,4 +109,46 @@ void mtm_analysis::set_task_man(const QString &data)
 QString mtm_analysis::task_man() const
 {
     return ui->widget_mtm->task_man();
+}
+
+nlohmann::json mtm_analysis::dump()
+{
+    json data;
+    data ["form"] = ui->widget_data->save_result();
+
+    data ["measure-date"] = measure_date().toStdString ();
+    data ["measure-man"] = measure_man().toStdString ();
+    data ["task-man"] = task_man().toStdString ();
+//    data ["std-time"] = std_time_sum().toStdString();
+
+    return data;
+}
+
+void mtm_analysis::load(const nlohmann::json &data)
+{
+    const auto iter_form = data.find ("form");
+    assert (iter_form != end (data));
+//    assert (iter_form->is_object ());
+//    auto iter_result = iter_form->find ("总计");
+//    assert (iter_result != iter_form->end () and iter_result->is_array ());
+
+    ui->widget_data->set_row (static_cast<int> (iter_form->size ()));
+    ui->widget_data->load_result (*iter_form);
+
+    const auto measure_date = data.find ("measure-date");
+    if (measure_date != end (data) and measure_date->is_string ())
+    {
+        auto date = QString::fromStdString (*measure_date);
+        set_measure_date (QDate::fromString(date, "yyyy-MM-dd"));
+    }
+    const auto measure_man = data.find ("measure-man");
+    if (measure_man != end (data) and measure_man->is_string ())
+    {
+        set_measure_man (QString::fromStdString (*measure_man));
+    }
+    const auto task_man = data.find ("task-man");
+    if (task_man != end (data) and task_man->is_string ())
+    {
+        set_task_man (QString::fromStdString (*task_man));
+    }
 }

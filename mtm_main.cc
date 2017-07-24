@@ -7,6 +7,12 @@
 #include <QMdiSubWindow>
 #include "interface_control/about_us_dlg.h"
 #include <QDateEdit>
+#include <QFileDialog>
+#include <base/io/file/file.hpp>
+#include <base/utils/charset.hpp>
+#include <QMessageBox>
+
+#include <QDebug>
 
 using namespace std;
 
@@ -57,6 +63,18 @@ void mtm_main::file_operations(const QString &s)
     {
         file_new();
     }
+    else if(s == "打开")
+    {
+        file_open();
+    }
+    else if(s == "保存")
+    {
+        file_save();
+    }
+    else if(s == "另存为")
+    {
+        file_save_as();
+    }
     else if(s == "退出")
     {
         close();
@@ -67,6 +85,94 @@ void mtm_main::file_new()
 {
     auto w = create_window ("未命名");
     w->set_task_count ();
+}
+
+void mtm_main::file_open()
+{
+    const auto path = QFileDialog::getOpenFileName (this, "文件打开", ".", tr ("Mtm Analysis File (*.mtmaf)"));
+    if (path.isEmpty ())
+    {
+        return;
+    }
+
+    auto res = file::read_all (::utf_to_sys (path.toStdString ()).data ());
+    if (not res)
+    {
+        QMessageBox::information (this, "打开", "文件无法打开,读取失败");
+        return;
+    }
+    try
+    {
+        const auto data = json::parse (res.value ());
+        auto w = create_window (path);
+        w->load (data);
+    }
+    catch (std::exception &)
+    {
+        QMessageBox::information (this, "打开", "文件格式错误 无法打开");
+        return;
+    }
+}
+
+void mtm_main::file_save()
+{
+    const auto active = ui->mdi->currentSubWindow ();
+    if (active == nullptr)
+    {
+        return;
+    }
+    auto w = dynamic_cast<mtm_analysis *> (active->widget ());
+
+    if (w == nullptr)
+    {
+        return;
+    }
+
+    if (!w->task_content_check ())
+    {
+        return;
+    }
+
+    if (const auto title_path = active->windowTitle ();
+            title_path == "未命名")
+    {
+        const auto path = QFileDialog::getSaveFileName(this, "文件保存", ".", tr ("Mtm Analysis File (*.mtmaf)"));
+        const auto data = w->dump ();
+        qDebug() << data.dump(4).data();
+
+        active->setWindowTitle(path);
+        file::write_buffer (::utf_to_sys (path.toStdString ()).data (), data.dump (4));
+    }
+    else
+    {
+        const auto data = w->dump ();
+        file::write_buffer (::utf_to_sys (title_path.toStdString ()).data (), data.dump (4));
+    }
+}
+
+void mtm_main::file_save_as()
+{
+    const auto active = ui->mdi->currentSubWindow ();
+    if (active == nullptr)
+    {
+        return;
+    }
+
+    auto w = active_window ();
+
+    if (!w->task_content_check ())
+    {
+        return;
+    }
+
+    if (w != nullptr)
+    {
+        const auto path = QFileDialog::getSaveFileName(this, "文件保存", ".", tr ("Mtm Analysis File (*.mtmaf)"));
+        const auto data = w->dump ();
+
+        active->setWindowTitle(path);
+        file::write_buffer (::utf_to_sys (path.toStdString ()).data (), data.dump (4));
+    }
 }
 
 void mtm_main::help_advice()
