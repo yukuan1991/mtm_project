@@ -113,7 +113,7 @@ void table_view::on_copy_del(int flag)
 
             if (flag & OPERATION_DEL)
             {
-                model->setData (index, {}, paste_role);
+                model->setData (index, QString {}, paste_role);
             }
         }
         if (i != max_row)

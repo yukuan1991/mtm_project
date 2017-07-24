@@ -14,6 +14,8 @@ data_widget::data_widget(QWidget *parent) :
     view_ = ui->table_result;
     set_view();
 
+    connect(result_model_.get(), &pts_model::dataChanged,
+            [this] { auto sum = get_std_time_sum(); emit std_time_sum(sum); });
 }
 
 data_widget::~data_widget()
@@ -91,9 +93,9 @@ void data_widget::add_code(const QVariant &code)
 
     view_->model ()->setData (code_list[min_row_index], code);
 
-    auto sum = get_std_time_sum();
-    qDebug() << sum;
-    emit std_time_sum(sum);
+//    auto sum = get_std_time_sum();
+//    qDebug() << sum;
+//    emit std_time_sum(sum);
 }
 
 void data_widget::set_unit(double unit)
@@ -151,6 +153,38 @@ void data_widget::clear()
     result_model_->clear ();
     ui->table_result->setModel (nullptr);
     ui->table_result->setModel (result_model_.get ());
+}
+
+void data_widget::on_cut()
+{
+    if (view_ != nullptr)
+    {
+        view_->on_copy_del (table_view::OPERATION_COPY | table_view::OPERATION_DEL);
+    }
+}
+
+void data_widget::on_copy()
+{
+    if (view_ != nullptr)
+    {
+        view_->on_copy_del (table_view::OPERATION_COPY);
+    }
+}
+
+void data_widget::on_paste()
+{
+    if (view_ != nullptr)
+    {
+        view_->on_paste ();
+    }
+}
+
+void data_widget::on_del()
+{
+    if (view_ != nullptr)
+    {
+        view_->on_copy_del (table_view::OPERATION_DEL);
+    }
 }
 
 void data_widget::set_view()

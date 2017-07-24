@@ -23,6 +23,8 @@ public:
     ~mtm_analysis();
 
     void set_task_count ();
+    void add_row();
+
 
     void set_measure_date (const QDate & date);
     QString measure_date () const;

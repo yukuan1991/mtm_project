@@ -11,14 +11,17 @@ bool pts_model::init(PTS attr)
     case PTS::left:
         headers_ << "作业内容" << "代码" << "数量*频次" << "TMU" << "评比系数" << "基本时间";
         edit_col_ << "作业内容" << "代码" << "数量*频次" << "评比系数";
+        paste_col_ << "作业内容" << "代码" << "数量*频次" << "评比系数";
         break;
     case PTS::right:
         headers_ << "基本时间" << "评比系数" << "TMU" << "数量*频次" << "代码" << "作业内容";
         edit_col_ << "作业内容" << "代码" << "数量*频次" << "评比系数";
+        paste_col_ << "作业内容" << "代码" << "数量*频次" << "评比系数";
         break;
     case PTS::result:
         headers_ << "作业内容" << "代码" << "数量*频次" << "TMU" << "评比系数" << "基本时间" << "宽放率" << "标准工时" << "增值/非增值" << "操作分类";
         edit_col_ << "作业内容" << "代码" << "数量*频次" << "评比系数" << "宽放率" << "操作分类";
+        paste_col_ << "作业内容" << "代码" << "数量*频次" << "评比系数" << "宽放率" << "操作分类";
         break;
     default:
         assert (false);
@@ -131,6 +134,10 @@ bool pts_model::set_code(const QModelIndex &index, const QVariant &value, int ro
                 }
             }
         }
+    }
+    else if(role == paste_role)
+    {
+        json_model::setData (index, value, role);
     }
     return false;
 }

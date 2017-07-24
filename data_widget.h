@@ -31,6 +31,10 @@ public:
 
     void set_row (int num);
     void clear();
+    void on_cut ();
+    void on_copy ();
+    void on_paste ();
+    void on_del ();
 private:
     void set_view ();
 

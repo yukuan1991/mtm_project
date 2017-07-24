@@ -88,7 +88,7 @@ not_null<mtm_analysis *> mtm_main::create_window(const QString &title)
 
     w->setWindowState (Qt::WindowMaximized);
 
-//    connect(ui->widget_ribbon, &ribbon_mtm::add_row, ptr_mtm_win, &mtm_analysis::add_row);
+    connect(ui->widget_ribbon, &ribbon_mtm::add_row, ptr_mtm_win, &mtm_analysis::add_row);
     connect(ui->widget_ribbon, &ribbon_mtm::copy, ptr_mtm_win, &mtm_analysis::copy);
     connect(ui->widget_ribbon, &ribbon_mtm::cut, ptr_mtm_win, &mtm_analysis::cut);
     connect(ui->widget_ribbon, &ribbon_mtm::paste, ptr_mtm_win, &mtm_analysis::paste);
