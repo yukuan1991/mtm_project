@@ -93,9 +93,6 @@ void data_widget::add_code(const QVariant &code)
 
     view_->model ()->setData (code_list[min_row_index], code);
 
-//    auto sum = get_std_time_sum();
-//    qDebug() << sum;
-//    emit std_time_sum(sum);
 }
 
 void data_widget::set_unit(double unit)
