@@ -13,12 +13,26 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
    <item>
-    <widget class="data_widget" name="widget_data" native="true"/>
+    <widget class="data_widget" name="widget_data" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>200</height>
+      </size>
+     </property>
+    </widget>
    </item>
    <item>
-    <widget class="mtm_widget" name="widget_mtm" native="true"/>
+    <widget class="mtm_widget" name="widget_mtm" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>300</height>
+      </size>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -22,6 +22,8 @@ mtm_main::mtm_main(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->mdi->setViewMode (QMdiArea::TabbedView);
+    setWindowState(Qt::WindowMaximized);
+    setMinimumSize(QSize(600, 800));
 //    init();
     init_conn();
     set_button_enabled();
@@ -41,6 +43,7 @@ void mtm_main::init_conn()
     connect(ui->widget_ribbon, &ribbon_mtm::file_menu_triggered,
             [this] (const QString & s) { file_operations(s); });
 
+    connect(ui->widget_ribbon, &ribbon_mtm::add_row, this, &mtm_main::add_row);
     connect(ui->widget_ribbon, &ribbon_mtm::measure_date, this, &mtm_main::on_measure_date);
     connect(ui->widget_ribbon, &ribbon_mtm::measure_man, this, &mtm_main::on_measure_man);
     connect(ui->widget_ribbon, &ribbon_mtm::task_man, this, &mtm_main::on_task_man);
@@ -133,8 +136,8 @@ void mtm_main::file_save()
         return;
     }
 
-    if (const auto title_path = active->windowTitle ();
-            title_path == "未命名")
+    const auto title_path = active->windowTitle ();
+    if (title_path == "未命名")
     {
         const auto path = QFileDialog::getSaveFileName(this, "文件保存", ".", tr ("Mtm Analysis File (*.mtmaf)"));
         const auto data = w->dump ();
@@ -168,11 +171,26 @@ void mtm_main::file_save_as()
     if (w != nullptr)
     {
         const auto path = QFileDialog::getSaveFileName(this, "文件保存", ".", tr ("Mtm Analysis File (*.mtmaf)"));
+        if(path.isEmpty())
+        {
+            return;
+        }
+
         const auto data = w->dump ();
 
         active->setWindowTitle(path);
         file::write_buffer (::utf_to_sys (path.toStdString ()).data (), data.dump (4));
     }
+}
+
+void mtm_main::add_row()
+{
+    auto w = active_window();
+    if (w == nullptr)
+    {
+        return;
+    }
+    w->add_row();
 }
 
 void mtm_main::help_advice()
@@ -194,7 +212,6 @@ not_null<mtm_analysis *> mtm_main::create_window(const QString &title)
 
     w->setWindowState (Qt::WindowMaximized);
 
-    connect(ui->widget_ribbon, &ribbon_mtm::add_row, ptr_mtm_win, &mtm_analysis::add_row);
     connect(ui->widget_ribbon, &ribbon_mtm::copy, ptr_mtm_win, &mtm_analysis::copy);
     connect(ui->widget_ribbon, &ribbon_mtm::cut, ptr_mtm_win, &mtm_analysis::cut);
     connect(ui->widget_ribbon, &ribbon_mtm::paste, ptr_mtm_win, &mtm_analysis::paste);
