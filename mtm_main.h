@@ -33,6 +33,10 @@ private:
     void file_save_as();
 private:
     void add_row();
+    void copy();
+    void cut();
+    void paste();
+    void del();
     void on_measure_date ();
     void on_measure_man ();
     void on_task_man ();

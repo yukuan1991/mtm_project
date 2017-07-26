@@ -23,7 +23,7 @@ mtm_main::mtm_main(QWidget *parent) :
     ui->setupUi(this);
     ui->mdi->setViewMode (QMdiArea::TabbedView);
     setWindowState(Qt::WindowMaximized);
-    setMinimumSize(QSize(600, 800));
+    setMinimumSize(QSize(1000, 800));
 //    init();
     init_conn();
     set_button_enabled();
@@ -43,6 +43,10 @@ void mtm_main::init_conn()
     connect(ui->widget_ribbon, &ribbon_mtm::file_menu_triggered,
             [this] (const QString & s) { file_operations(s); });
 
+    connect(ui->widget_ribbon, &ribbon_mtm::copy, this, &mtm_main::copy);
+    connect(ui->widget_ribbon, &ribbon_mtm::cut, this, &mtm_main::cut);
+    connect(ui->widget_ribbon, &ribbon_mtm::paste, this, &mtm_main::paste);
+    connect(ui->widget_ribbon, &ribbon_mtm::del, this, &mtm_main::del);
     connect(ui->widget_ribbon, &ribbon_mtm::add_row, this, &mtm_main::add_row);
     connect(ui->widget_ribbon, &ribbon_mtm::measure_date, this, &mtm_main::on_measure_date);
     connect(ui->widget_ribbon, &ribbon_mtm::measure_man, this, &mtm_main::on_measure_man);
@@ -193,6 +197,46 @@ void mtm_main::add_row()
     w->add_row();
 }
 
+void mtm_main::copy()
+{
+    auto w = active_window();
+    if (w == nullptr)
+    {
+        return;
+    }
+    w->copy();
+}
+
+void mtm_main::cut()
+{
+    auto w = active_window();
+    if (w == nullptr)
+    {
+        return;
+    }
+    w->cut();
+}
+
+void mtm_main::paste()
+{
+    auto w = active_window();
+    if (w == nullptr)
+    {
+        return;
+    }
+    w->paste();
+}
+
+void mtm_main::del()
+{
+    auto w = active_window();
+    if (w == nullptr)
+    {
+        return;
+    }
+    w->del();
+}
+
 void mtm_main::help_advice()
 {
     const QString text = R"(<html><head/><body><p>如果您有任何需求与改进建议，</p><p>请随时联系IEToolkit君qq3350436646</p>
@@ -211,11 +255,6 @@ not_null<mtm_analysis *> mtm_main::create_window(const QString &title)
     w->setWindowTitle (title);
 
     w->setWindowState (Qt::WindowMaximized);
-
-    connect(ui->widget_ribbon, &ribbon_mtm::copy, ptr_mtm_win, &mtm_analysis::copy);
-    connect(ui->widget_ribbon, &ribbon_mtm::cut, ptr_mtm_win, &mtm_analysis::cut);
-    connect(ui->widget_ribbon, &ribbon_mtm::paste, ptr_mtm_win, &mtm_analysis::paste);
-    connect(ui->widget_ribbon, &ribbon_mtm::del, ptr_mtm_win, &mtm_analysis::del);
 
     return mtm_win.release ();
 }

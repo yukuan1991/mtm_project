@@ -196,6 +196,11 @@ void table_view::keyPressEvent(QKeyEvent *event)
             table_view::on_copy_del(OPERATION_COPY | OPERATION_DEL);
             return;
         }
+        else if (event->key () == Qt::Key_V)
+        {
+            table_view::on_paste();
+            return;
+        }
     }
     QTableView::keyPressEvent (event);
 }
