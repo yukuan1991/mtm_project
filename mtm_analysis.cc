@@ -114,7 +114,7 @@ QString mtm_analysis::task_man() const
 nlohmann::json mtm_analysis::dump()
 {
     json data;
-    data ["form"] = ui->widget_data->save_result();
+    data ["form"]["总计"] = ui->widget_data->save_result();
 
     data ["measure-date"] = measure_date().toStdString ();
     data ["measure-man"] = measure_man().toStdString ();
@@ -128,12 +128,12 @@ void mtm_analysis::load(const nlohmann::json &data)
 {
     const auto iter_form = data.find ("form");
     assert (iter_form != end (data));
-//    assert (iter_form->is_object ());
-//    auto iter_result = iter_form->find ("总计");
-//    assert (iter_result != iter_form->end () and iter_result->is_array ());
+    assert (iter_form->is_object ());
+    auto iter_result = iter_form->find ("总计");
+    assert (iter_result != iter_form->end () and iter_result->is_array ());
 
-    ui->widget_data->set_row (static_cast<int> (iter_form->size ()));
-    ui->widget_data->load_result (*iter_form);
+    ui->widget_data->set_row (static_cast<int> (iter_result->size ()));
+    ui->widget_data->load_result (*iter_result);
 
     const auto measure_date = data.find ("measure-date");
     if (measure_date != end (data) and measure_date->is_string ())
