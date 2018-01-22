@@ -4,6 +4,8 @@
 #include <boost/filesystem.hpp>
 #include <QStyleFactory>
 #include <boost/range/adaptors.hpp>
+#include "verification/verification.h"
+#include <QTimer>
 
 void set_style ()
 {
@@ -32,10 +34,21 @@ void set_style ()
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    if(!verification_process())
+    {
+        return -1;
+    }
+
     set_style();
 
     mtm_main w;
     w.show();
+
+    QTimer timer;
+    timer.setInterval (1000);
+    timer.setSingleShot (true);
+    QObject::connect (&timer, &QTimer::timeout, [&] { check_date (); timer.start (); });
+    timer.start ();
 
     return a.exec();
 }

@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG -= c++11
 QMAKE_CXXFLAGS += -std=c++1z
 
-TARGET = mtm_project
+TARGET = mtm
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -41,7 +41,8 @@ SOURCES += main.cc\
     Qt-Utils/encryption.cpp \
     Qt-Utils/tinyxml2.cpp \
     view/table_view.cpp \
-    mtm_analysis.cc
+    mtm_analysis.cc \
+    verification/verification.cpp
 
 HEADERS  += mtm_main.h \
     interface_control/about_us_dlg.h \
@@ -63,15 +64,19 @@ HEADERS  += mtm_main.h \
     Qt-Utils/tinyxml2.h \
     view/table_view.h \
     arithmetic_resource.hpp \
-    mtm_analysis.h
+    mtm_analysis.h \
+    verification/verification.h
 
 FORMS    += mtm_main.ui \
     data_widget.ui \
     mtm_widget.ui \
     mtm_analysis.ui
 
-LIBS += -lboost_locale
-LIBS += -liconv
 LIBS += -lboost_filesystem
 LIBS += -lboost_system
 LIBS += -lboost_regex
+LIBS += -lboost_thread
+LIBS += -lboost_locale
+LIBS += -liconv
+LIBS += -lwininet
+LIBS += -lws2_32

@@ -27,6 +27,7 @@ mtm_main::mtm_main(QWidget *parent) :
 //    init();
     init_conn();
     set_button_enabled();
+    setWindowTitle("MTM");
 }
 
 mtm_main::~mtm_main()
